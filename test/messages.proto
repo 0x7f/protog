@@ -1,0 +1,17 @@
+package protog.test;
+
+message SimpleMessage {
+  optional string id = 1;
+  optional int32 my_int32 = 2;
+  optional double my_double = 3;
+}
+
+message NestedMessage {
+    message InnerMessage {
+        optional string a = 1;
+        repeated double b = 2;
+    }
+    optional string id = 1;
+    optional InnerMessage my_inner = 2;
+    repeated InnerMessage my_list = 3;
+}
