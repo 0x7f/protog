@@ -323,7 +323,8 @@ struct Printer {
         printNamespaceBegin(file, graph);
         fprintf(file, "typedef struct %s_parser_state_s *%s_parser_state_t;\n", t, t);
         fprintf(file, "\n");
-        fprintf(file, "%s %s_parser_easy(const std::string& json);\n", c, t);
+        fprintf(file, "%s %s_parser_easy(const std::string &json);\n", c, t);
+        fprintf(file, "%s %s_parser_easy(const char *buf, size_t bufLen);\n", c, t);
         fprintf(file, "\n");
         fprintf(file, "%s_parser_state_t %s_parser_init(%s &msg);\n", t, t, c);
         fprintf(file, "void %s_parser_free(%s_parser_state_t state);\n", t, t);
@@ -664,10 +665,14 @@ struct Printer {
 
     void printApiImpl(FILE *file, const char *t, const char *c) {
         fprintf(file, "%s %s_parser_easy(const std::string &json) {\n", c, t);
+        fprintf(file, "    return %s_parser_easy(json.c_str(), json.size());\n", t);
+        fprintf(file, "}\n");
+        fprintf(file, "\n");
+        fprintf(file, "%s %s_parser_easy(const char *buf, size_t bufLen) {\n", c, t);
         fprintf(file, "    %s msg;\n", c);
         fprintf(file, "    %s_parser_state_t state = %s_parser_init(msg);\n", t, t);
         fprintf(file, "\n");
-        fprintf(file, "    int rc = %s_parser_on_chunk(state, const_cast<char*>(json.c_str()), json.size());\n", t);
+        fprintf(file, "    int rc = %s_parser_on_chunk(state, const_cast<char*>(buf), bufLen);\n", t);
         fprintf(file, "    if (rc != 0) {\n");
         fprintf(file, "        char *err = %s_parser_get_error(state);\n", t);
         fprintf(file, "        throw std::runtime_error(err);\n");
