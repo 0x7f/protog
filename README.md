@@ -7,7 +7,9 @@ already (e.g. [shramov/json2pb](https://github.com/shramov/json2pb),
 the reflection feature of protobuf to map the json and they keep the full parsed json object in memory. Both points are
 usually no big deal, but when performance really matters, they will become an issue. The generated code of protog
 allows SAX-style (a.k.a event-driven) parsing of the incoming json message and uses a state-machine to fill the output
-protobuf message as fast as possible. See benchmarks below.
+protobuf message as fast as possible.
+
+See [0x7f/protog-benchmark](https://github.com/0x7f/protog-benchmark) for benchmarks.
 
 ## Build
 
@@ -26,13 +28,8 @@ make
 ./test/protog_test
 ```
 
-## Benchmarks
-
-TODO
-
 ## TODO
 
-* add benchmark results
 * parse cmdline arguments (e.g. add debug option)
 * sane error behaviour - not just `exit(1);`
 * use free templated functions that are instatiated for each message.
