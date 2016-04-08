@@ -26,8 +26,6 @@ using google::protobuf::io::FileInputStream;
 using google::protobuf::io::Tokenizer;
 using google::protobuf::io::ZeroCopyInputStream;
 
-#define LOG_TRACE 0
-
 namespace protog {
 
 struct Printer {
@@ -517,6 +515,8 @@ struct Printer {
 }
 
 int main(int argc, char **argv) {
+    bool debug = false;
+
     // TODO: parse args
     if (argc != 4) {
         fprintf(stderr, "You must provide the following arguments:\n");
@@ -531,9 +531,9 @@ int main(int argc, char **argv) {
 
     protog::Graph graph{fname, message_name};
     graph.parseMessageDesc();
-#if LOG_TRACE == 1
-    graph.printDebug(stdout);
-#endif
+    if (debug) {
+        graph.printDebug(stdout);
+    }
 
     protog::Printer printer{};
     printer.print(graph, proto_header);
