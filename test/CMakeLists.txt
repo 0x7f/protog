@@ -38,9 +38,10 @@ macro(ADD_PARSER PROTO_FILE PROTO_MSG)
             ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.h
             COMMAND
             ${CMAKE_BINARY_DIR}/protog
-            ${CMAKE_CURRENT_SOURCE_DIR}/${PROTO_FILE}.proto
-            ${PROTO_FILE}.pb.h
-            protog.test.${PROTO_MSG}
+            -p ${CMAKE_CURRENT_SOURCE_DIR}/${PROTO_FILE}.proto
+            -i ${PROTO_FILE}.pb.h
+            -m protog.test.${PROTO_MSG}
+            -o .
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
             DEPENDS protog
     )
