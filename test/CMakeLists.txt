@@ -34,7 +34,7 @@ macro(ADD_PARSER PROTO_FILE PROTO_MSG)
     string(TOLOWER ${PROTO_MSG} PROTO_MSG_LOW)
     add_custom_command(
             OUTPUT
-            ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.cpp
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.cc
             ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.h
             COMMAND
             ${CMAKE_BINARY_DIR}/protog
@@ -46,7 +46,7 @@ macro(ADD_PARSER PROTO_FILE PROTO_MSG)
             DEPENDS protog
     )
     list(APPEND TEST_SRC_FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.cpp
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.cc
             ${CMAKE_CURRENT_BINARY_DIR}/${PROTO_MSG_LOW}_parser.pb.h)
 endmacro()
 

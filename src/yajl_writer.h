@@ -19,7 +19,7 @@ struct YajlWriter : public Writer {
         printHeader(header, graph, name_lower.c_str(), cpp_type.c_str(), proto_header);
         fclose(header);
 
-        const auto source_name = res_name_prefix + ".cpp";
+        const auto source_name = res_name_prefix + ".cc";
         FILE *source = fopen(source_name.c_str(), "w");
         printSource(source, graph, name_lower.c_str(), cpp_type.c_str());
         fclose(source);
