@@ -246,7 +246,7 @@ struct Graph {
     void addNodeToTypeLists(Node &node) {
         assert(node.state);
         all_nodes.push_back(&node);
-        if (node.field && node.field->is_optional()) {
+        if (node.field && (node.field->is_optional() || node.field->is_repeated())) {
             null_nodes.push_back(&node);
         }
         switch (node.type) {
