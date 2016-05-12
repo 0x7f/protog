@@ -30,6 +30,7 @@ make
 
 ## TODO
 
-* parse cmdline arguments (e.g. add debug option)
 * sane error behaviour - not just `exit(1);`
-* use free templated functions that are instatiated for each message.
+* support self-referencing messages.
+* supported forbidden keywords like protected which are mapped to protected_
+* maybe use free templated functions that are instatiated for each message
