@@ -44,6 +44,7 @@ static NodeType getNodeTypeForProtoType(FieldDescriptor::Type type) {
         case FieldDescriptor::TYPE_INT32:
         case FieldDescriptor::TYPE_INT64:
         case FieldDescriptor::TYPE_UINT32:
+        case FieldDescriptor::TYPE_UINT64: // TODO: test for data loss!
         case FieldDescriptor::TYPE_FIXED32:
         case FieldDescriptor::TYPE_FIXED64:
         case FieldDescriptor::TYPE_SFIXED32:
@@ -60,7 +61,6 @@ static NodeType getNodeTypeForProtoType(FieldDescriptor::Type type) {
             return NodeType::OUTSIDE_OBJECT;
         case FieldDescriptor::TYPE_ENUM:
             return NodeType::LONG;
-        case FieldDescriptor::TYPE_UINT64: // TODO
         case FieldDescriptor::TYPE_BYTES: // TODO
         default:
             throw std::runtime_error("Unsupported protobuf type " + std::to_string(static_cast<int>(type)));
