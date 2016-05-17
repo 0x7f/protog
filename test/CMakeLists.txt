@@ -61,4 +61,5 @@ target_link_libraries(protog_test
     yajl
     ${PROTOBUF_LIBRARIES}
     ${GTEST_LIB_DIR}/libgtest.a
-    ${GTEST_LIB_DIR}/libgtest_main.a)
+    ${GTEST_LIB_DIR}/libgtest_main.a
+    m pthread)
