@@ -11,15 +11,30 @@ protobuf message as fast as possible.
 
 See [0x7f/protog-benchmark](https://github.com/0x7f/protog-benchmark) for benchmarks.
 
-## Build
+## Install required packages
 
-First, install required packages, e.g. on Debian run:
-
+Debian:
 ```
 apt-get install build-essential cmake protobuf-compiler libprotobuf-dev libprotoc-dev libyajl-dev
 ```
 
-Then build:
+Mac OS X with Homebrew:
+```
+brew install gcc cmake protobuf protobuf-c yajl
+```
+
+If you don't have `gtest` installed, do it now:
+```
+curl "http://googletest.googlecode.com/files/gtest-1.7.0.zip" -o "gtest-1.7.0.zip"
+unzip gtest-1.7.0.zip
+cd gtest-1.7.0
+./configure
+make
+sudo cp -a include/gtest /usr/local/include
+sudo cp -a lib/.libs/* /usr/local/lib/
+```
+
+## Build
 
 ```
 mkdir build && cd build
