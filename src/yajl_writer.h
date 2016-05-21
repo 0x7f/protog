@@ -8,18 +8,18 @@ namespace protog {
 struct YajlWriter : public Writer {
     virtual ~YajlWriter() {}
 
-    virtual void write(const Graph &graph, const char* proto_header) override {
+    virtual void write(const Graph &graph, const char* proto_header, const char* output_dir) override {
         auto name_lower = graph.root.desc->name();
         std::transform(name_lower.begin(), name_lower.end(), name_lower.begin(), ::tolower);
         const auto cpp_type = get_full_cpp_type_name(*graph.root.desc);
         const auto res_name_prefix = name_lower + "_parser.pb";
 
-        const auto header_name = res_name_prefix + ".h";
+        const auto header_name = output_dir + res_name_prefix + ".h";
         FILE *header = fopen(header_name.c_str(), "w");
         printHeader(header, graph, name_lower.c_str(), cpp_type.c_str(), proto_header);
         fclose(header);
 
-        const auto source_name = res_name_prefix + ".cc";
+        const auto source_name = output_dir + res_name_prefix + ".cc";
         FILE *source = fopen(source_name.c_str(), "w");
         printSource(source, graph, name_lower.c_str(), cpp_type.c_str());
         fclose(source);

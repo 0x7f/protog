@@ -16,6 +16,9 @@
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #include "parser.h"
 #include "yajl_writer.h"
 
@@ -34,6 +37,21 @@ void print_help(FILE* f) {
     fprintf(f, "                     It defaults to \"%s\".\n", DEFAULT_OUTPUT_DIR);
     fprintf(f, "Example usage:\n");
     fprintf(f, "  protog -p openrtb.proto -m com.google.openrtb.BidRequest -i openrtb.pb.h\n");
+}
+
+void make_output_dir(const char* output_dir, char* buffer) {
+    struct stat st = {0};
+    if (stat(output_dir, &st) == -1) {
+        mkdir(output_dir, 0700);
+    }
+
+    auto output_dir_len = strlen(output_dir);
+    strcpy(buffer, output_dir);
+
+    if (output_dir[output_dir_len - 1] != '/') {
+        buffer[output_dir_len]     = '/';
+        buffer[output_dir_len + 1] = '\0';
+    }
 }
 
 int main(int argc, char **argv) {
@@ -78,6 +96,16 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
+    auto output_dir_len = strlen(output_dir);
+    if (output_dir_len == 0) {
+        fprintf(stderr, "Invalid output directory.\n");
+        print_help(stderr);
+        exit(EXIT_FAILURE);
+    }
+
+    char output_dir_buf[output_dir_len + 1];
+    make_output_dir(output_dir, output_dir_buf);
+
     protog::Graph graph{proto_file, proto_message};
     graph.parseMessageDesc();
     if (debug) {
@@ -85,7 +113,7 @@ int main(int argc, char **argv) {
     }
 
     auto writer = std::make_shared<protog::YajlWriter>();
-    writer->write(graph, proto_include);
+    writer->write(graph, proto_include, output_dir_buf);
 
     return 0;
 }
