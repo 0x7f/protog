@@ -11,15 +11,19 @@ protobuf message as fast as possible.
 
 See [0x7f/protog-benchmark](https://github.com/0x7f/protog-benchmark) for benchmarks.
 
-## Build
+## Install required packages
 
-First, install required packages, e.g. on Debian run:
-
+Debian:
 ```
 apt-get install build-essential cmake protobuf-compiler libprotobuf-dev libprotoc-dev libyajl-dev
 ```
 
-Then build:
+Mac OS X with Homebrew:
+```
+brew install gcc cmake protobuf protobuf-c yajl
+```
+
+## Build
 
 ```
 mkdir build && cd build
