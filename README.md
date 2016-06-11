@@ -22,10 +22,18 @@ apt-get install build-essential cmake protobuf-compiler libprotobuf-dev libproto
 Then build:
 
 ```
+cd path/to/protog
 mkdir build && cd build
 cmake ..
 make
 ./test/protog_test
+```
+
+## Run openrtb example
+
+```
+cd path/to/protog
+./build/protog -p examples/openrtb/openrtb.proto -m com.google.openrtb.BidRequest -i examples/openrtb/openrtb.pb.h
 ```
 
 ## TODO
