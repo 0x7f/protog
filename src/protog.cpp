@@ -40,10 +40,7 @@ void print_help(FILE* f) {
 }
 
 void make_output_dir(const char* output_dir, char* buffer) {
-    struct stat st = {0};
-    if (stat(output_dir, &st) == -1) {
-        mkdir(output_dir, 0700);
-    }
+    mkdir(output_dir, 0700);
 
     auto output_dir_len = strlen(output_dir);
     strcpy(buffer, output_dir);
